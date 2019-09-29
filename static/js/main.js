@@ -1,0 +1,13 @@
+function showLoadingState(elementId)
+{
+    $('#' + elementId).find('.loaded-state').addClass('element-hide');
+    $('#' + elementId).find('.loading-state').removeClass('element-hide');
+}
+
+function showLoadedState(elementId)
+{
+    $('#' + elementId).find('.loaded-state').removeClass('element-hide');
+    $('#' + elementId).find('.loading-state').addClass('element-hide');
+}
+
+API_URL = 'http://localhost:8000/'

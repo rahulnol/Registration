@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<div class="modal" id="signupModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="signUpForm" method="post">
+                {% csrf_token %}
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign Up</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <span id="success-msg" class="element-hide error">there</span>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="loaded-state">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email"
+                                   style="height: 30px">
+                            <span id="email-error" class="element-hide error">Please enter valid email address</span>
+                            <span id="email-success" class="element-hide error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <input type="password" name="password" class="form-control" id="password"
+                                           placeholder="Enter password" style="height: 30px;">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="checkbox" onclick="passwordToggle()"><span
+                                        style="font-size: 10px;color: blue">Show Password</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpassword">Confirm Password</label>
+                            <input type="password" class="form-control" name="cpassword" id="cpassword"
+                                   placeholder="Enter password" style="height: 30px;">
+
+                            <span id="password-error" class="element-hide error">Password does not matched</span>
+                        </div>
+                    </div>
+                    <div class="loading-state element-hide">
+                        <img src="{% static 'images/loading-gif.gif' %}" class="loading-icon">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" value="SignUp" class="btn btn-primary" onclick="signUp();return false;">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/signUp.js' %}"></script>
