@@ -133,3 +133,9 @@ EMAIL_HOST_PASSWORD = 'rahul@123'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Team <noreply@bookshow.com>'
 
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_RESULT_BACKEND = 'amqp://localhost'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+

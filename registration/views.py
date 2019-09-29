@@ -12,6 +12,7 @@ from jwt.utils import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .tasks import send_activation_email, add
 
 from registration.tokens import account_activation_token
 
@@ -53,15 +54,7 @@ def signUp(req):
         newPerson.set_password(password)
         newPerson.is_active = False
         newPerson.save()
-        current_site = get_current_site(req)
-        message = render_to_string('registration/account_activation_email.html', {
-            'user': newPerson,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(str(newPerson.pk))).decode("utf-8"),
-            'token': account_activation_token.make_token(newPerson),
-        })
-        send_mail('Please confirm your email address', message, settings.EMAIL_HOST_USER, [newPerson.email])
-
+        send_activation_email.delay(req, newPerson)
         response = {'success': True, 'error': False, 'redirect': '/account/activate/'}
         jd = json.dumps(response)
         return HttpResponse(jd, content_type='application/json')
@@ -83,3 +76,9 @@ def activate(request, uidb64, token):
         login(request, user)
         return redirect('/dashboard/')
     return redirect('/')
+
+
+def test(request):
+    print('22...')
+    add.delay(2,4)
+    return HttpResponse({})
