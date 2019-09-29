@@ -10,4 +10,10 @@ function showLoadedState(elementId)
     $('#' + elementId).find('.loading-state').addClass('element-hide');
 }
 
+function cleanFormData(elementId) {
+    $('#' + elementId).find("input, textarea").each(function () {
+        $(this).val('');
+    })
+}
+
 API_URL = 'http://localhost:8000/'

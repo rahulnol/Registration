@@ -1,7 +1,35 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block content %}
     <div class="container jumbotron text-center">
         Email : {{ user.username }}
+        <form id="imageForm">
+            {% csrf_token %}
+            <table class="table table-striped" align="center" style="width: 500px">
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="btn float-right" onclick="addRow(); return false;">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="url" class="form-control" placeholder="Add image URL" name="imageURL"><br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <center>
+                <button type="submit" class="btn btn-primary" onclick="submitImageForm(); return false;">Submit</button>
+            </center>
+        </form>
     </div>
+{% endblock %}
 
+{% block extrajs %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
